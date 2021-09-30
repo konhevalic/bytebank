@@ -1,3 +1,4 @@
+import 'package:bytebank/screens/formulario_contatos.dart';
 import 'package:flutter/material.dart';
 
 class ListaContatos extends StatelessWidget {
@@ -27,7 +28,9 @@ class ListaContatos extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: (){},
+          onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FormularioContatos()));
+          },
           child: const Icon(Icons.add),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:bytebank/screens/dashboard.dart';
+import 'package:bytebank/screens/formulario_contatos.dart';
 import 'package:flutter/material.dart';
 
 void main() {
