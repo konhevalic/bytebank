@@ -1,3 +1,5 @@
+import 'package:bytebank/database/app_database.dart';
+import 'package:bytebank/models/contato.dart';
 import 'package:bytebank/screens/formulario_contatos.dart';
 import 'package:flutter/material.dart';
 
@@ -17,23 +19,60 @@ class ListaContatos extends StatelessWidget {
             'Contatos'
             ),
           ),
-        body: ListView(
-          children: const [
-            Card(
-              child: ListTile(
-                title: Text('Alão gatão'),
-                subtitle: Text('1000'),
-                ),
-            )
-          ],
+        body: FutureBuilder<List<Contato>>(
+          initialData: const [],
+          future: buscarTodosContatos(),
+          builder: (context, snapshot) {
+            switch(snapshot.connectionState) {
+              case ConnectionState.none:
+                break;
+              case ConnectionState.waiting:
+                return const Center(child: CircularProgressIndicator());
+              case ConnectionState.active:
+                break;
+              case ConnectionState.done:
+                final List<Contato> contacts = snapshot.data as List<Contato>;
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                final Contato contact = contacts[index];
+                return _ContactItem(contact);
+              },
+              itemCount: contacts.length
+              );
+            }
+            return const Text('Erro interno.');
+          }            
         ),
+        
         floatingActionButton: FloatingActionButton(
           onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FormularioContatos()));
+            Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const FormularioContatos()))
+            .then((novoContato) => debugPrint(novoContato.toString()));
           },
           child: const Icon(Icons.add),
         ),
       ),
     );
   }
+}
+
+class _ContactItem extends StatelessWidget {
+  final Contato contact;
+  const _ContactItem(this.contact);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+              child: ListTile(
+                title: Text(
+                  contact.name, 
+                  style: const TextStyle(fontSize: 24.0)),
+                subtitle: Text(
+                  contact.accountNumber.toString(),
+                  style: const TextStyle(fontSize: 16.0)),
+                ),
+            );
+  }
+  
 }
