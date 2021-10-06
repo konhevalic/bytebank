@@ -1,3 +1,4 @@
+import 'package:bytebank/database/app_database.dart';
 import 'package:bytebank/models/contato.dart';
 import 'package:flutter/material.dart';
 
@@ -28,21 +29,21 @@ class _FormularioContatosState extends State<FormularioContatos> {
               decoration: const InputDecoration(
                 labelText: 'Nome completo'
               ),
-              style: TextStyle(fontSize: 18.0),
+              style: const TextStyle(fontSize: 18.0),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(top: 8.0),
               child: TextField(
                 controller: _accountNumberController,
                 decoration: const InputDecoration(
                   labelText: 'Número da conta'
                 ),
-                style: TextStyle(fontSize: 18.0),
-                keyboardType: TextInputType.numberWithOptions(),
+                style: const TextStyle(fontSize: 18.0),
+                keyboardType: const TextInputType.numberWithOptions(),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 16.0),
+              padding: const EdgeInsets.only(top: 16.0),
               child: SizedBox(
                 width: double.maxFinite,
                 child: ElevatedButton(
@@ -51,7 +52,7 @@ class _FormularioContatosState extends State<FormularioContatos> {
                     final String name = _nameController.text;
                     final int? accountNumber = int.tryParse(_accountNumberController.text);
                     final Contato novoContato = Contato(0, name, accountNumber!);
-                    Navigator.pop(context, novoContato);
+                    salvar(novoContato).then((id) => Navigator.pop(context));
                   }
                 ),
               ),
