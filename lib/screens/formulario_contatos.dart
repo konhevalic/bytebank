@@ -1,7 +1,17 @@
+import 'package:bytebank/models/contato.dart';
 import 'package:flutter/material.dart';
 
-class FormularioContatos extends StatelessWidget {
+class FormularioContatos extends StatefulWidget {
   const FormularioContatos ({ Key? key }) : super(key: key);
+
+  @override
+  State<FormularioContatos> createState() => _FormularioContatosState();
+}
+
+class _FormularioContatosState extends State<FormularioContatos> {
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _accountNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +22,10 @@ class FormularioContatos extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          children: const [
+          children: [
             TextField(
-              decoration: InputDecoration(
+              controller: _nameController,
+              decoration: const InputDecoration(
                 labelText: 'Nome completo'
               ),
               style: TextStyle(fontSize: 18.0),
@@ -22,7 +33,8 @@ class FormularioContatos extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 8.0),
               child: TextField(
-                decoration: InputDecoration(
+                controller: _accountNumberController,
+                decoration: const InputDecoration(
                   labelText: 'Número da conta'
                 ),
                 style: TextStyle(fontSize: 18.0),
@@ -34,8 +46,13 @@ class FormularioContatos extends StatelessWidget {
               child: SizedBox(
                 width: double.maxFinite,
                 child: ElevatedButton(
-                  onPressed: null,
-                  child: Text('Criar contato')
+                  child: const Text('Criar contato'),
+                  onPressed: () {
+                    final String name = _nameController.text;
+                    final int? accountNumber = int.tryParse(_accountNumberController.text);
+                    final Contato novoContato = Contato(0, name, accountNumber!);
+                    Navigator.pop(context, novoContato);
+                  }
                 ),
               ),
             )

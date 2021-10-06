@@ -1,10 +1,13 @@
+import 'package:bytebank/database/app_database.dart';
 import 'package:bytebank/screens/dashboard.dart';
-import 'package:bytebank/screens/formulario_contatos.dart';
 import 'package:flutter/material.dart';
+
+import 'models/contato.dart';
 
 void main() {
   runApp(const ByteBankApp());
 }
+
 
 class ByteBankApp extends StatelessWidget {
   const ByteBankApp({Key? key}) : super(key: key);
