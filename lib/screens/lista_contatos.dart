@@ -3,9 +3,13 @@ import 'package:bytebank/models/contato.dart';
 import 'package:bytebank/screens/formulario_contatos.dart';
 import 'package:flutter/material.dart';
 
-class ListaContatos extends StatelessWidget {
+class ListaContatos extends StatefulWidget {
   const ListaContatos({ Key? key }) : super(key: key);
 
+  @override
+  State<ListaContatos> createState() => _ListaContatosState();
+}
+class _ListaContatosState extends State<ListaContatos> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -48,7 +52,7 @@ class ListaContatos extends StatelessWidget {
           onPressed: (){
             Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => const FormularioContatos()))
-            .then((novoContato) => debugPrint(novoContato.toString()));
+            .then((value) => setState(() {}));
           },
           child: const Icon(Icons.add),
         ),
